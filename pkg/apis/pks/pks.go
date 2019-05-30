@@ -14,36 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Generate deepcopy for apis
-//go:generate go run ../../vendor/k8s.io/code-generator/cmd/deepcopy-gen/main.go -O zz_generated.deepcopy -i ./... -h ../../hack/boilerplate.go.txt
-
-// Package apis contains Kubernetes API groups
-package apis
+// Package pks contains Kubernetes API for pks cloud provider.
+package pks
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	"github.com/crossplaneio/crossplane/pkg/apis/aws"
-	"github.com/crossplaneio/crossplane/pkg/apis/azure"
-	"github.com/crossplaneio/crossplane/pkg/apis/cache"
-	"github.com/crossplaneio/crossplane/pkg/apis/compute"
-	"github.com/crossplaneio/crossplane/pkg/apis/core"
-	"github.com/crossplaneio/crossplane/pkg/apis/gcp"
-	"github.com/crossplaneio/crossplane/pkg/apis/pks"
-	"github.com/crossplaneio/crossplane/pkg/apis/storage"
+	computev1alpha1 "github.com/crossplaneio/crossplane/pkg/apis/pks/compute/v1alpha1"
+	"github.com/crossplaneio/crossplane/pkg/apis/pks/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		aws.AddToScheme,
-		azure.AddToScheme,
-		cache.AddToScheme,
-		compute.AddToScheme,
-		core.AddToScheme,
-		gcp.AddToScheme,
-		pks.AddToScheme,
-		storage.AddToScheme,
+		v1alpha1.SchemeBuilder.AddToScheme,
+		computev1alpha1.SchemeBuilder.AddToScheme,
 	)
 }
 
